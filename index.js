@@ -1,5 +1,9 @@
 const express = require('express');
+const mongoose = require('mongoose')
 const router = require('./routes')
+const keys = require('./config/keys')
+
+mongoose.connect(keys.mongoURI, { useMongoClient: true });
 
 const app = express();
 

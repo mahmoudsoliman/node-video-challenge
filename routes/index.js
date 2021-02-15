@@ -1,10 +1,10 @@
 const express = require('express');
 const videoRouter = require('./video')
-const userRouter = require('./user')
+const favoritesRouter = require('./favorites')
 
 const router = express.Router();
 
 router.use('/video', videoRouter)
-router.use('/user', userRouter)
+router.use('/favorites', favoritesRouter)
 
 module.exports = router
