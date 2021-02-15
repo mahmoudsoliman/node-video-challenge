@@ -3,21 +3,22 @@ const models = require('../../models')
 const db = require('../utils/db')
 const videoService = require('../../services/videoService')
 const faker = require('../utils/faker')
-const { model } = require('mongoose')
+
 
 describe('Video write tests', () => {
-  beforeEach(db.cleanUpDB)
+  afterEach(db.cleanUpDB)
   describe('Create video tests', () => {
+
     test('should create video', async () => {
       const videoData = faker.fakeVideo()
-      await videoService.createVideo({
+      const createdVideo = await videoService.createVideo({
         title: videoData.title,
         description: videoData.description,
         image: videoData.image,
         link_youtube: videoData.link_youtube
       })
 
-      const dbVideo = await models.Video.findOne().lean()
+      const dbVideo = await models.Video.findById(createdVideo._id).lean()
       expect(dbVideo.title).toEqual(videoData.title)
       expect(dbVideo.description).toEqual(videoData.description)
       expect(dbVideo.image).toEqual(videoData.image)
@@ -26,6 +27,7 @@ describe('Video write tests', () => {
   })
 
   describe('Update video tests', () => {
+   
     test('should update video', async () => {
       const video = await db.generateVideo({title: 'initial title'})
       const newTitle = 'new title'
@@ -38,11 +40,11 @@ describe('Video write tests', () => {
 
       expect(updatedVideo.title).toEqual(newTitle)
 
-      const dbVideo = await models.Video.findOne().lean()
+      const dbVideo = await models.Video.findById(video._id).lean()
       expect(dbVideo.title).toEqual(newTitle)
     })
 
-    test('should return undefined if video does not exist', async () => {
+    test('should return null if video does not exist', async () => {
       const videoData = faker.fakeVideo()
       const updatedVideo = await videoService.updateVideo(videoData._id, {
         title: videoData.title,
@@ -51,10 +53,10 @@ describe('Video write tests', () => {
         link_youtube: videoData.link_youtube
       })
 
-      expect(updatedVideo).toBe(undefined)
+      expect(updatedVideo).toBe(null)
 
-      const dbVideo = await models.Video.findOne().lean()
-      expect(dbVideo).toBe(undefined)
+      const dbVideo = await models.Video.findById(videoData._id).lean()
+      expect(dbVideo).toBe(null)
     })
     
   })
@@ -65,8 +67,8 @@ describe('Video write tests', () => {
 
       await videoService.deleteVideo(video._id)
 
-      const dbVideo = await models.Video.findOne().lean()
-      expect(dbVideo).toBe(undefined)
+      const dbVideo = await models.Video.findById(video._id).lean()
+      expect(dbVideo).toBe(null)
     })
   })
 })

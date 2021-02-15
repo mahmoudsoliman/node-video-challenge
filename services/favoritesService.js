@@ -1,5 +1,6 @@
+const { Favorite } = require('../models')
 const getUserFavorites = async (userId) => {
-  return {}
+  return Favorite.find({user: userId}).populate('video').lean()
 }
 
 module.exports = {

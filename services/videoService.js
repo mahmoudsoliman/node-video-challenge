@@ -1,21 +1,27 @@
+const { Video } = require('../models')
+
 const search = async (query) => {
-  return {}
+  return Video.find({
+    $text: {
+      $search: query
+    }
+  }).lean()
 }
 
 const getVideoById = async (videoId) => {
-  return {}
+  return Video.findById(videoId).lean()
 }
 
 const createVideo = async (video) => {
-  return {}
+  return Video.create(video)
 }
 
 const updateVideo = async (videoId, video) => {
-  return {}
+  return Video.findByIdAndUpdate(videoId, video, { new: true })
 }
 
 const deleteVideo = async (videoId) => {
-  return {}
+  return Video.deleteOne({_id: videoId})
 }
 
 module.exports = {
