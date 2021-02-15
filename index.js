@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const router = require('./routes')
 const keys = require('./config/keys')
 
-mongoose.connect(keys.mongoURI, { useMongoClient: true });
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true })
 
 const app = express();
 

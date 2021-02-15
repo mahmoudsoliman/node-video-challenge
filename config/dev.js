@@ -1,3 +1,3 @@
 module.exports = {
-  mongoURI: 'mongodb://127.0.0.1:27017/videos_dev'
+  mongoURI: 'mongodb+srv://videos_api:Vid_123456@cluster0.kqwdo.mongodb.net/videos_dev?retryWrites=true&w=majority'
 }

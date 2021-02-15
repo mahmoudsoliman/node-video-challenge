@@ -6,12 +6,12 @@ describe('Favorites read operations tests', () => {
     test('should return array of videos that the user marked as favorite', async () => {
       const user = await db.generateUser()
       //generate video to be user favorite
-      const favoriteVideo = await db.generateVideo()
+      const video = await db.generateVideo()
       //generate video that will not be user favorite
       await db.generateVideo()
 
       //generate user favorite video 
-      const favoriteVideo = await db.generateFavorite({user: user._id, video: favoriteVideo._id})
+      const favoriteVideo = await db.generateFavorite({user: user._id, video: video._id})
 
       const favorites = await getUserFavorites(user._id)
       expect(favorites).toEqual([

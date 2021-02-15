@@ -39,7 +39,7 @@ describe('Video read tests', () => {
       expect(video).toEqual(match)
     })
     
-    test('should return undefined if video does not exist', () => {
+    test('should return undefined if video does not exist', async () => {
       const video = await videoService.getVideoById(faker.fakeObjectId())
 
       expect(video).toBe(undefined)

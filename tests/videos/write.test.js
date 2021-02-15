@@ -8,7 +8,7 @@ const { model } = require('mongoose')
 describe('Video write tests', () => {
   beforeEach(db.cleanUpDB)
   describe('Create video tests', () => {
-    test('should create video', () => {
+    test('should create video', async () => {
       const videoData = faker.fakeVideo()
       await videoService.createVideo({
         title: videoData.title,
@@ -60,7 +60,7 @@ describe('Video write tests', () => {
   })
 
   describe('Delete video tests', () => {
-    test('should delete video', () => {
+    test('should delete video', async () => {
       const video = await db.generateVideo()
 
       await videoService.deleteVideo(video._id)
