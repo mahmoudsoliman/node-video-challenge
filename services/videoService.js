@@ -1,6 +1,6 @@
 const { Video } = require('../models')
 
-const search = async (query) => {
+const search = async (query = '') => {
   return Video.find({
     $text: {
       $search: query
