@@ -4,7 +4,7 @@ const videoService = require('../../services/videoService')
 const faker = require('../utils/faker')
 
 describe('Video read tests', () => {
-  afterEach(db.cleanUpDB)
+  afterEach(async () => await db.cleanUpDB())
   describe('Search videos tests', () => {
     
     test('should return list of videos according to search query', async () => {
@@ -16,7 +16,7 @@ describe('Video read tests', () => {
       
       expect(_.isArray(videos)).toBe(true)
       expect(videos.length).toEqual(2)
-      expect(videos.sort()).toEqual([match1, match2].sort())
+      expect(videos.sort(video => video.title)).toEqual([match1, match2].sort(video => video.title))
     })
 
     test('should return empty list according to search query', async () => {

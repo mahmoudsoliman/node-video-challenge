@@ -6,7 +6,7 @@ const faker = require('../utils/faker')
 
 
 describe('Video write tests', () => {
-  afterEach(db.cleanUpDB)
+  afterEach(async () => await db.cleanUpDB())
   describe('Create video tests', () => {
 
     test('should create video', async () => {

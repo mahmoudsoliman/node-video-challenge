@@ -3,7 +3,7 @@ const db = require('../utils/db')
 const favoriteServicce = require('../../services/favoritesService')
 
 describe('Favorites read operations tests', () => {
-  afterEach(db.cleanUpDB)
+  afterEach(async () => await db.cleanUpDB())
   describe('Get user favorites tests', () => {
     test('should return array of videos that the user marked as favorite', async () => {
       const user = await db.generateUser()
