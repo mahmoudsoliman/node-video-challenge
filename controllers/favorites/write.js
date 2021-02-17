@@ -1,3 +1,4 @@
+const asyncHandler = require('express-async-handler')
 const favoriteService = require('../../services/favoritesService')
 
 const addFavorite = async (req, res) => {
@@ -6,15 +7,15 @@ const addFavorite = async (req, res) => {
     userId
   } = req.body
 
-  try {
-    const favorite = favoriteService.addFavorite(userId, videoId)
-    if(favorite.error) res.status(400).send(favorite.error)
-    res.status(201).send(favorite)
-  } catch (error) {
-    res.status(500).send({error: 'Something went wrong'})
-  }
+  const favorite = favoriteService.addFavorite(userId, videoId)
+  if(favorite.error){
+    res.status(400)
+    return favorite
+  } 
+  res.status(201)
+  return favorite
 }
 
 module.exports = {
-  addFavorite
+  addFavorite: asyncHandler(addFavorite)
 }
