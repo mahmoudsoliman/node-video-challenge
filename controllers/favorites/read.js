@@ -1,7 +1,7 @@
 const favoriteServicce = require('../../services/favoritesService')
 
 const getUserFavorites = async (req, res) => {
-  const userId = req.userId
+  const userId = req.params.userId
   try {
     const results = await favoriteServicce.getUserFavorites(userId)
     res.status(200).send(results)
