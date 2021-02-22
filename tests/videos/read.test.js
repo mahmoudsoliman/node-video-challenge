@@ -4,19 +4,30 @@ const videoService = require('../../services/videoService')
 const faker = require('../utils/faker')
 
 describe('Video read tests', () => {
-  afterEach(async () => await db.cleanUpDB())
   describe('Search videos tests', () => {
+    afterEach(async () => await db.cleanUpDB())
     
     test('should return list of videos according to search query', async () => {
       const match1 = await db.generateVideo({title: 'Wizeline test video'})
       const match2 = await db.generateVideo({title: 'here is wizeline'})
+      const expectedResults = [match1, match2].map(video => {
+        return {
+          _id: video._id,
+          title: video.title,
+          description: video.description,
+          image: video.image,
+          link_youtube: video.link_youtube
+        }
+      })
       await db.generateVideo({title: 'hello world'})
 
       const videos = await videoService.search('wizeline')
+
       
       expect(_.isArray(videos)).toBe(true)
       expect(videos.length).toEqual(2)
-      expect(videos.sort(video => video.title)).toEqual([match1, match2].sort(video => video.title))
+      
+      expect(_.sortBy(videos, 'title')).toEqual(_.sortBy(expectedResults, 'title'))
     })
 
     test('should return empty list according to search query', async () => {
@@ -32,7 +43,7 @@ describe('Video read tests', () => {
   })
 
   describe('Get video by id tests', () => {
-
+    afterEach(async () => await db.cleanUpDB())
     test('should return video details', async () => {
       const match = await db.generateVideo()
 

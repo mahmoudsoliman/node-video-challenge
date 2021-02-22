@@ -7,7 +7,7 @@ const addFavorite = async (req, res) => {
   } = req.body
 
   try {
-    const favorite = favoriteService.addFavorite(userId, videoId)
+    const favorite = await favoriteService.addFavorite(userId, videoId)
     if(favorite.error) res.status(400).send(favorite.error)
     res.status(201).send(favorite)
   } catch (error) {

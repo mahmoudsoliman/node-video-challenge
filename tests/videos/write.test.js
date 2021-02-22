@@ -6,8 +6,8 @@ const faker = require('../utils/faker')
 
 
 describe('Video write tests', () => {
-  afterEach(async () => await db.cleanUpDB())
   describe('Create video tests', () => {
+    afterEach(async () => await db.cleanUpDB())
 
     test('should create video', async () => {
       const videoData = faker.fakeVideo()
@@ -27,7 +27,7 @@ describe('Video write tests', () => {
   })
 
   describe('Update video tests', () => {
-   
+    afterEach(async () => await db.cleanUpDB())
     test('should update video', async () => {
       const video = await db.generateVideo({title: 'initial title'})
       const newTitle = 'new title'
@@ -62,6 +62,7 @@ describe('Video write tests', () => {
   })
 
   describe('Delete video tests', () => {
+    afterEach(async () => await db.cleanUpDB())
     test('should delete video', async () => {
       const video = await db.generateVideo()
 

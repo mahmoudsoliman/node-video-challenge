@@ -33,7 +33,7 @@ const create = async (req, res) => {
 const deleteVideo = async (req, res) => {
   const videoId = req.params.id
   try {
-    const { ok } = videoService.deleteVideo(videoId)
+    const { ok } = await videoService.deleteVideo(videoId)
     if(ok)
       res.status(200).send()
     else

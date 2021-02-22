@@ -5,7 +5,8 @@ const faker = require('../utils/faker')
 
 describe('Write favorite tests', () => {
   describe('create favorite tests', () => {
-    test('should add new favorite', () => {
+    afterEach(async () => await db.cleanUpDB())
+    test('should add new favorite', async () => {
       const user = await db.generateUser()
       const video = await db.generateVideo()
 
@@ -17,7 +18,7 @@ describe('Write favorite tests', () => {
       expect(dbFavorite).not.toBe(null)
     })
     
-    test('should return error when user not found', () => {
+    test('should return error when user not found', async () => {
       const userId = faker.fakeObjectId()
       const video = await db.generateVideo()
 
@@ -25,11 +26,12 @@ describe('Write favorite tests', () => {
       expect(favorite.error).toEqual('user not found')
     })
     
-    test('should return error when video not found', () => {
+    test('should return error when video not found', async () => {
       const user = await db.generateUser()
       const videoId = faker.fakeObjectId()
 
       const favorite = await favoriteService.addFavorite(user._id, videoId)
+
       expect(favorite.error).toEqual('video not found')
     })
   })

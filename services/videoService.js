@@ -1,11 +1,21 @@
 const { Video } = require('../models')
 
 const search = async (query = '') => {
-  return Video.find({
+  const results = await Video.find({
     $text: {
       $search: query
     }
   }).lean()
+
+  return results.map(video => {
+    return {
+      _id: video._id,
+      title: video.title,
+      description: video.description,
+      image: video.image,
+      link_youtube: video.link_youtube
+    }
+  })
 }
 
 const getVideoById = async (videoId) => {

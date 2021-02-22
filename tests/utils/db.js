@@ -3,10 +3,11 @@ const faker = require('faker')
 const models = require('../../models')
 
 const cleanUpDB = async () => {
-  const modelNames = Object.keys(models)
-  for(const modelName of modelNames){
-    await models[modelName].deleteMany({})
-  }
+  console.log('Cleanup DB')
+  // const modelNames = Object.keys(models)
+  // for(const modelName of modelNames){
+  //   await models[modelName].deleteMany({})
+  // }
 }
 
 const generateUser = async (data = {}) => {

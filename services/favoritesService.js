@@ -7,10 +7,12 @@ const getUserFavorites = async (userId) => {
 }
 
 const addFavorite = async (userId, videoId) => {
-  const user = userService.getUser(userId)
+  const user = await userService.getUser(userId)
+  console.log({user})
   if(!user) return { error: 'user not found'}
 
-  const video = videoService.getVideoById(videoId)
+  const video = await videoService.getVideoById(videoId)
+  console.log({video})
   if(!video) return {error: 'video not found'}
 
   return Favorite.create({
